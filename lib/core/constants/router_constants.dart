@@ -7,9 +7,11 @@ class RouterConstants {
   static const String gattExplorer = '/gatt-explorer';
   static const String bleSimulation = '/ble-simulation';
   static const String bleAnalyzer = '/ble-analyzer';
+  static const String protocolAnalyzer = '/protocol-analyzer';
   static const String otaUpdate = '/ota-update';
   static const String beaconLab = '/beacon-lab';
   static const String logsConsole = '/logs-console';
+  static const String simulationHub = '/simulation/hub';
 
   // Route names
   static const String modeSelectorName = 'mode-selector';
@@ -19,7 +21,9 @@ class RouterConstants {
   static const String gattExplorerName = 'gatt-explorer';
   static const String bleSimulationName = 'ble-simulation';
   static const String bleAnalyzerName = 'ble-analyzer';
+  static const String protocolAnalyzerName = 'ProtocolAnalyzer';
   static const String otaUpdateName = 'ota-update';
   static const String beaconLabName = 'beacon-lab';
   static const String logsConsoleName = 'logs-console';
+  static const String simulationHubName = 'SimulationHub';
 }

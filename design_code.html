@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Protocol Analyzer - BLE Development</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8311d4",
+                        "accent-teal": "#00f5d4",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#1a1022",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #513267;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen">
+<!-- Top Navigation Bar -->
+<div class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-[#392348]">
+<div class="flex items-center p-4 justify-between max-w-md mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">arrow_back_ios</span>
+<h1 class="text-lg font-bold tracking-tight">Protocol Analyzer</h1>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex items-center gap-1 bg-primary/20 px-2 py-1 rounded-full">
+<span class="size-2 bg-primary rounded-full animate-pulse"></span>
+<p class="text-primary text-[10px] font-bold uppercase tracking-widest">Live</p>
+</div>
+<span class="material-symbols-outlined text-slate-500 dark:text-[#b292c9]">settings</span>
+</div>
+</div>
+</div>
+<main class="max-w-md mx-auto pb-24">
+<!-- Throughput Hero Metric -->
+<div class="p-4">
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-[#392348] shadow-sm border border-slate-100 dark:border-none">
+<div class="flex justify-between items-start">
+<p class="text-slate-500 dark:text-[#b292c9] text-sm font-medium uppercase tracking-wider">Current Throughput</p>
+<span class="material-symbols-outlined text-accent-teal">speed</span>
+</div>
+<div class="flex items-baseline gap-2">
+<p class="text-4xl font-bold leading-tight tracking-tight">124.5</p>
+<p class="text-primary text-xl font-bold">kbps</p>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="text-accent-teal text-sm font-bold">+12.4%</span>
+<div class="h-1 flex-1 bg-slate-100 dark:bg-[#1b1122] rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[65%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Dual Charts Section -->
+<div class="px-4 py-2">
+<div class="grid grid-cols-1 gap-4">
+<!-- Latency Chart -->
+<div class="flex flex-col gap-2 p-4 rounded-xl bg-white dark:bg-[#251630] border border-slate-100 dark:border-none shadow-sm">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-slate-500 dark:text-[#b292c9] text-xs font-medium">Latency (ms)</p>
+<p class="text-2xl font-bold">45ms</p>
+</div>
+<div class="flex gap-1 items-center bg-red-500/10 px-2 py-0.5 rounded text-red-500 text-[10px] font-bold">
+<span class="material-symbols-outlined text-[12px]">trending_up</span> 2ms
+                        </div>
+</div>
+<div class="h-[100px] w-full mt-2">
+<svg fill="none" height="100%" preserveaspectratio="none" viewbox="0 0 478 150" width="100%" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25" stroke="#8311d4" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+</div>
+</div>
+<!-- Payload Size Chart -->
+<div class="flex flex-col gap-2 p-4 rounded-xl bg-white dark:bg-[#251630] border border-slate-100 dark:border-none shadow-sm">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-slate-500 dark:text-[#b292c9] text-xs font-medium">Payload Size (bytes)</p>
+<p class="text-2xl font-bold">128B</p>
+</div>
+<div class="flex gap-1 items-center bg-accent-teal/10 px-2 py-0.5 rounded text-accent-teal text-[10px] font-bold">
+                            STABLE
+                        </div>
+</div>
+<div class="h-[100px] w-full mt-2">
+<svg fill="none" height="100%" preserveaspectratio="none" viewbox="0 0 478 150" width="100%" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 80C18 80 18 80 36 80C54 80 54 80 72 80C90 80 90 20 108 20C127 20 127 80 145 80C163 80 163 80 181 80C199 80 199 40 217 40C236 40 236 80 254 80C272 80 272 80 290 80C308 80 308 120 326 120C344 120 344 80 363 80C381 80 381 80 399 80C417 80 417 80 435 80C453 80 453 80 472 80" stroke="#00f5d4" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<!-- Packet Flow Header -->
+<div class="flex items-center justify-between px-4 pt-6 pb-2">
+<h3 class="text-white text-lg font-bold leading-tight tracking-tight flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">swap_vert</span>
+                Packet Flow
+            </h3>
+<button class="text-primary text-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">delete</span> Clear
+            </button>
+</div>
+<!-- Timeline / Packet Visualizer -->
+<div class="px-4">
+<div class="bg-white dark:bg-[#251630] rounded-xl p-4 shadow-sm max-h-[320px] overflow-y-auto custom-scrollbar border border-slate-100 dark:border-none">
+<div class="grid grid-cols-[32px_1fr] gap-x-3">
+<!-- Packet 1: TX -->
+<div class="flex flex-col items-center gap-1">
+<div class="size-8 rounded-full bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-lg">arrow_upward</span>
+</div>
+<div class="w-[1.5px] bg-slate-200 dark:bg-[#513267] h-8"></div>
+</div>
+<div class="flex flex-1 flex-col pb-6">
+<p class="text-sm font-bold text-primary">TX: Write Request (0x0012)</p>
+<p class="text-slate-500 dark:text-[#b292c9] text-xs font-mono">12:04:01.234 • 24B • MTU 247</p>
+</div>
+<!-- Packet 2: RX -->
+<div class="flex flex-col items-center gap-1">
+<div class="size-8 rounded-full bg-accent-teal/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-accent-teal text-lg">arrow_downward</span>
+</div>
+<div class="w-[1.5px] bg-slate-200 dark:bg-[#513267] h-8"></div>
+</div>
+<div class="flex flex-1 flex-col pb-6">
+<p class="text-sm font-bold text-accent-teal">RX: Write Response (0x0012)</p>
+<p class="text-slate-500 dark:text-[#b292c9] text-xs font-mono">12:04:01.256 • 0B • SUCCESS</p>
+</div>
+<!-- Packet 3: TX Notification -->
+<div class="flex flex-col items-center gap-1">
+<div class="size-8 rounded-full bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-lg">arrow_upward</span>
+</div>
+<div class="w-[1.5px] bg-slate-200 dark:bg-[#513267] h-8"></div>
+</div>
+<div class="flex flex-1 flex-col pb-6">
+<p class="text-sm font-bold text-primary">TX: Notification (0x0015)</p>
+<p class="text-slate-500 dark:text-[#b292c9] text-xs font-mono">12:04:02.001 • 118B • PUSH</p>
+</div>
+<!-- Packet 4: RX Error -->
+<div class="flex flex-col items-center gap-1">
+<div class="size-8 rounded-full bg-red-500/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-red-500 text-lg">error</span>
+</div>
+</div>
+<div class="flex flex-1 flex-col">
+<p class="text-sm font-bold text-red-500">RX: Read Failure (0x002A)</p>
+<p class="text-slate-500 dark:text-[#b292c9] text-xs font-mono">12:04:02.150 • 0B • TIMEOUT</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Error Injection Section -->
+<div class="p-4">
+<h3 class="text-white text-lg font-bold mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-red-500">biotech</span>
+                Error Injection
+            </h3>
+<div class="grid grid-cols-2 gap-3">
+<!-- Toggle 1 -->
+<button class="flex items-center justify-between p-4 rounded-xl bg-white dark:bg-[#392348] border border-slate-100 dark:border-[#513267] active:scale-95 transition-transform">
+<span class="text-sm font-bold">Drop Packet</span>
+<div class="w-10 h-5 bg-slate-200 dark:bg-[#1b1122] rounded-full relative">
+<div class="absolute right-1 top-1 size-3 bg-primary rounded-full"></div>
+</div>
+</button>
+<!-- Toggle 2 -->
+<button class="flex items-center justify-between p-4 rounded-xl bg-white dark:bg-[#392348] border border-slate-100 dark:border-[#513267] active:scale-95 transition-transform">
+<span class="text-sm font-bold">CRC Error</span>
+<div class="w-10 h-5 bg-slate-200 dark:bg-[#1b1122] rounded-full relative">
+<div class="absolute left-1 top-1 size-3 bg-slate-400 dark:bg-[#513267] rounded-full"></div>
+</div>
+</button>
+<!-- Toggle 3 -->
+<button class="flex items-center justify-between p-4 rounded-xl bg-white dark:bg-[#392348] border border-slate-100 dark:border-[#513267] active:scale-95 transition-transform">
+<span class="text-sm font-bold">PHY Switch</span>
+<div class="w-10 h-5 bg-slate-200 dark:bg-[#1b1122] rounded-full relative">
+<div class="absolute left-1 top-1 size-3 bg-slate-400 dark:bg-[#513267] rounded-full"></div>
+</div>
+</button>
+<!-- Toggle 4 -->
+<button class="flex items-center justify-between p-4 rounded-xl bg-white dark:bg-[#392348] border border-slate-100 dark:border-[#513267] active:scale-95 transition-transform">
+<span class="text-sm font-bold text-accent-teal">Advanced Mode</span>
+<div class="w-10 h-5 bg-accent-teal/20 rounded-full relative">
+<div class="absolute right-1 top-1 size-3 bg-accent-teal rounded-full"></div>
+</div>
+</button>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (iOS Style) -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-background-dark/80 backdrop-blur-xl border-t border-slate-200 dark:border-[#392348] px-6 py-3">
+<div class="max-w-md mx-auto flex justify-between items-center">
+<div class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-[10px] font-bold">Analyze</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-slate-400 dark:text-[#b292c9]">
+<span class="material-symbols-outlined">terminal</span>
+<span class="text-[10px] font-bold">Console</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-slate-400 dark:text-[#b292c9]">
+<span class="material-symbols-outlined">bluetooth</span>
+<span class="text-[10px] font-bold">Devices</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-slate-400 dark:text-[#b292c9]">
+<span class="material-symbols-outlined">history</span>
+<span class="text-[10px] font-bold">History</span>
+</div>
+</div>
+<!-- iOS Home Indicator Spacing -->
+<div class="h-4"></div>
+</nav>
+</body></html>

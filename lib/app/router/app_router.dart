@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../features/mode_selector/presentation/screens/mode_selector_screen.dart';
 import '../../features/device_discovery/presentation/screens/device_discovery_screen.dart';
 import '../../features/gatt_explorer/presentation/screens/gatt_explorer_screen.dart';
+import '../../features/simulation_hub/presentation/screens/simulation_hub_screen.dart';
+import '../../features/protocol_analyzer/presentation/screens/protocol_analyzer_screen.dart';
 import '../../core/constants/router_constants.dart';
 final appRouterProvider = Provider<GoRouter>((ref) => GoRouter(
     initialLocation: RouterConstants.deviceDiscovery,
@@ -57,6 +59,17 @@ final appRouterProvider = Provider<GoRouter>((ref) => GoRouter(
         path: RouterConstants.logsConsole,
         name: RouterConstants.logsConsoleName,
         builder: (context, state) => const Scaffold(body: Center(child: Text('Logs Console'))),
+      ),
+      GoRoute(
+        path: RouterConstants.simulationHub,
+        name: RouterConstants.simulationHubName,
+        builder: (context, state) => const SimulationHubScreen(),
+      ),
+      // Protocol Analyzer route
+      GoRoute(
+        path: RouterConstants.protocolAnalyzer,
+        name: RouterConstants.protocolAnalyzerName,
+        builder: (context, state) => const ProtocolAnalyzerScreen(),
       ),
     ],
   ));
